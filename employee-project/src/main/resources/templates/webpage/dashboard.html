@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashoboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <h1 class="fs-1 text-light text-center py-5 bg-secondary">Welcome to SPRK Technologies</h1>
+
+
+
+    <div class="container mt-5 ">
+
+        <a th:href="@{/employee/form}" class="btn btn-outline-secondary btn-lg py-3 px-5">Add Employee</a>
+
+        <div class="mt-5 text-center" th:if="${session.msg}">
+            <p th:text="${session.msg}" class="fs-3 text-success"></p>
+
+            <th:block th:text="${@employeeServiceImpl.removeSessionMsg()}"></th:block>
+        </div>
+        <div class="mt-5 text-center" th:if="${session.deleteMsg}">
+            <p th:text="${session.deleteMsg}" class="fs-3 text-danger"></p>
+
+            <th:block th:text="${@employeeServiceImpl.removeSessionDeletedMsg()}"></th:block>
+        </div>
+        <div class="mt-5" style="margin-bottom: 100px;">
+            <h1 class="text-center">List Of All Employees</h1>
+        </div>
+
+        <div class="">
+            <table class="table table-bordered mx-auto my-5 text-center table-hover">
+                <thead>
+                    <tr class="table-dark">
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="tempEmployee:${employees}">
+
+                        <td th:text="${tempEmployee.firstName}"></td>
+                        <td th:text="${tempEmployee.lastName}"></td>
+                        <td th:text="${tempEmployee.email}"></td>
+                        <td th:text="${tempEmployee.phoneNo}"></td>
+                        <td>
+                            <a th:href="@{'/employee/update/'+${tempEmployee.empId}}" class="btn btn-outline-primary"><i
+                                    class="fa-solid fa-pen-to-square"></i></a>
+                            <a th:href="@{'/employee/delete/'+ ${tempEmployee.empId}}" class="btn btn-outline-danger"><i
+                                    class="fa-solid fa-trash"></i></a>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- <div >
+        </div> -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/21ffbf0563.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
